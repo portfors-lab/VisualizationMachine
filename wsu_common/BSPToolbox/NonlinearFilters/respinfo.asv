@@ -1,0 +1,24 @@
+fs = 125;
+R  = 125;
+
+x  = resp;
+
+x   = (x - mean(x))/std(x);
+xd  = decimate(x, R);
+y   = rankorder(xd, 5, 99,0);
+
+t = (0:length(y)-1)/((fs/R)*60);
+thr = prctile(xd, 75)*ones(1,length(t));
+
+rdi  = zeros(1,length(y));
+i  = find(y > thr(1));
+rdi(i) = 1;
+
+
+figure; figureset(1,'wide'); 
+h = plot(t,xd, t, y, 'r', t, thr, 'g', rdi/60, y(rdi),'k.');
+set(h,'Markersize', 20);
+xlabel('Time, min');
+ylabel('Respiration');
+
+

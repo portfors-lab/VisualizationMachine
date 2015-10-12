@@ -1,0 +1,29 @@
+% Simulation
+N   = 200;                    % Number of persons
+CM  = 0;                      % Initial number of 5 Euros bills
+
+
+for CM=0:N
+    cnt = [];
+    for k=1:1000;
+    RN  = rand(1,200);
+    P5  = length(RN(RN<0.5));
+    P10 = length(RN(RN>0.5));
+        for i=1:N,                   % Clients start coming
+            if RN(i) <= 0.5          % Client pays with a 5 Euro bill
+                CM = CM +1;          % Cashier has one 5 Euro bill more
+            else                     % Client pays with 10 Euro bill
+                CM = CM -1;          % Cashier has one 5 Euro bill less
+                if CM < 0
+                    break;
+                end;
+            end;
+        end;
+        if i==N
+            cnt = cnt+1;
+        end;
+    end;
+end;
+
+
+    

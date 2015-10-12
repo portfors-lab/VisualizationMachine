@@ -1,0 +1,72 @@
+function [Ui,Zi] = LCG(Z0,aa, ca, ma); 
+%LCG: Linear Congruential Generator
+%
+%   [Ui,Zi] = LCG(a, c, m);        
+%
+%   Z0   Seed (starting value)
+%   a    Multiplier (default = 7^5).
+%   c    Increment (default c=0).
+%   m    Modulus (default m = 2^31-1).
+%
+%   Ui   Uniformly distributed Random Variable
+%   Zi   Remainders
+%
+%   Implements a linear congruential random number generator (LCG).
+%   This type of random-number generator were introduced by Lehmer 
+%   in 1951. A sequence of integers Z1, Z2, ..., is defined by the 
+%   recursive formula:
+%
+%                   Zi = (aZi-1 + c)(mod m)
+%
+%   where m (the modulus), a (the multiplier), c (the increment), 
+%   and Z0 (the seed or starting value) are nonnegative intergers. 
+%   Zi is obtained by dividing aZi-1+c by m and storing the 
+%   remainder of this division. Since 0<=Zi<=m-1, uniformly 
+%   distributed random numbers Ui [0,1] are obtained according to
+%   Ui = Zi/m.
+%  
+%   Example: Generate a uniformly distributed random variable Ui 
+%
+%   Ui = LCG(5);
+%
+%   A.L. Law, W.D. Kelton, Simulation Modeling and Analysis: McGraw-Hill, 
+%   2000, pp.402-409.
+%
+%   W.D. Kelton, R.P. Sadowski, D.A. Sadowski, Simulation with Arena: 
+%   McGraw-Hill, pp.471-479 
+%
+%   Version 1.00.00.00 by Mateo Aboy 
+%
+%   See also TBC.
+
+%=======================================================================
+% Process function arguments
+%=======================================================================
+if nargin<1 | nargin>3,
+    help LCG;
+    return;
+end;
+
+a = 7^5;                                   % Default multiplier
+if exist('aa') & ~isempty(aa),
+    a = aa;
+end;
+    
+c = 0;                                     % Default increment
+if exist('ca') & ~isempty(ca),
+    c = ca;
+end;
+
+c = (2^31)-1;                                % Default modulus
+if exist('ca') & ~isempty(ca),
+    c = ca;
+end;
+
+m=63
+Zi_1 = 19;
+Zi   = [];
+for i=1:700,
+    Zi   = [Zi;Zi_1];
+    Zi_1 = mod((22*Zi_1+4),63);
+    Ui   = Zi/m;
+end
