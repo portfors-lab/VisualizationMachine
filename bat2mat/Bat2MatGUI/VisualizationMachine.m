@@ -131,6 +131,7 @@ uimenu(fileMenu, 'label', 'Help', 'callback', @helpFun);
 uimenu(fileMenu, 'label', 'Exit', 'callback', @exitFun);
 uimenu(compareMenu, 'label', 'tuning curve difference', 'callback', 'TCDiff');
 uimenu(compareMenu, 'label', 'Correlation Matrix', 'callback', 'CorrMetricGUI');
+uimenu(compareMenu, 'label', 'Correlation Matrix Stitch', 'callback', 'CorrMetricGUIStitch');
 uimenu(compareMenu, 'label', 'Spike Predictions', 'callback', @predictFun);
 
 calData = [];
