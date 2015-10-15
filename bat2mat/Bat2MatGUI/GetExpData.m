@@ -40,12 +40,23 @@ function [prefs experimentData] = GetExpData(animalPath)
         if ~strcmp([pstFile ext], experimentData.pst_filename)
             WriteStatus(['cached data does not match. cached:' experimentData.pst_filename ', selected: ' pstFile], 'red')
         end
-    else
-        %otherwise read in data from raw file
+    elseif (exist(prefs.raw_data_filepath, 'file') && ~exist(prefs.pst_data_filepath, 'file'))
+        % read in data from raw file
         if ~exist(prefs.raw_data_filepath, 'file') || ~exist(prefs.pst_data_filepath, 'file')
             WriteStatus('Invalid animal folder selection: select the folder in which the .raw & .pst files reside; folder must bear the same name as these files', 'red');
             prefs = [];
             experimentData = [];
+            return
+        end
+        experimentData = LoadExperimentData(prefs);
+        save(cachedData, 'experimentData');
+    else
+        % Try and read data from hdf5
+        if ~exist(prefs.hdf5_data_filepath, 'file')
+            WriteStatus('Invalid animal folder selection: select the folder in which the (.raw & .pst) or .hdf5 files reside; folder must bear the same name as these files', 'red');
+            prefs = [];
+            experimentData = [];
+            display(prefs.hdf5_data_filepath)
             return
         end
         experimentData = LoadExperimentData(prefs);

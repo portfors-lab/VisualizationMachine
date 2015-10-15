@@ -51,6 +51,7 @@ function prefs = GeneratePreferences(animalPath, isFolder)
     prefs.raw_data_filepath = [parentDir animalName '.raw'];
     prefs.xml_data_filepath = [parentDir animalName '-alltests-nospikes.xml'];
     prefs.pst_data_filepath = [parentDir animalName '.pst'];
+    prefs.hdf5_data_filepath = [parentDir animalName '.hdf5'];
     prefs.output_data_filepath = [prefs.bat2matlab_directory 'Output' filesep];
 
     if ~isempty(cell_string)
@@ -63,50 +64,7 @@ function prefs = GeneratePreferences(animalPath, isFolder)
     prefs.cell_id = [animalName '_' cell_string];
     prefs.cell_id4_plot = prefs.cell_id; prefs.cell_id4_plot(strfind(prefs.cell_id4_plot,'_')) = '.';
 
-%Added from "GeneratePreferencesNew.m" [EM] 
-%%%Trying to debug error that  spike_time_fikter_cutoff does not exist when trying to run correlation matrix code  
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%Options for Spike Time calculation
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% prefs.spike_time_filter_cutoff = 600;
-% filter cutoff reduces amplitude of spikes which have higher frequency
-prefs.spike_time_filter_cutoff = 50000; %This will find all spikes
-prefs.spike_time_power_exponent = 2;
-prefs.spike_time_peak_threshold = 0.11; %Default
-prefs.spike_time_refractory_period = 2.0; %Milliseconds
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%Options for Spike Rate calculation
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% prefs.spike_rate_sampling_frequency = NaN; %defaults to trace.samplerate_ad;
-prefs.spike_rate_sampling_frequency = 8000;
-prefs.spike_rate_cutoff_frequency = 200;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%Options for spectrogram peak finding calculation
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-prefs.num_harmonics = 6;
-%Peak detection noise floor as a fraction of the highest peak
-prefs.harmonic_peak_detection_noise_floor = 0.2;
-prefs.frequency_cutoff_ratio = 175; %Higher values smooth more
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%Options for model data generation
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-prefs.model_num_data_rows_per_cell = 2^7;
-prefs.model_time_samples_per_millisecond = 1/2; %Default
-% prefs.model_time_samples_per_millisecond = 1; %Default
-prefs.model_spectral_integration = 0; %0:Rectangular 1:Gaussian
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%Options for Spike Train Filtering (Gaussian kernal)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-prefs.filtered_gaussian_sample_frequency = 1000; %Hz
-% prefs.filtered_gaussian_stdev = 2; %In milliseconds
-prefs.filtered_gaussian_stdev = 3; %In milliseconds
-
-
+    
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %Options used for speaker callibration and dB SPL normalization

@@ -62,6 +62,7 @@ parentDir = parentDir(1:length(parentDir) - length(tok))
     prefs.raw_data_filepath = [base_batlab_data_path '\' tok '.raw'];
     prefs.xml_data_filepath = [base_batlab_data_path '\' tok '-alltests-nospikes.xml'];
     prefs.pst_data_filepath = [base_batlab_data_path '\' tok '.pst'];
+    prefs.hdf5_data_filepath = [base_batlab_data_path '\' tok '.hdf5'];
     prefs.output_data_filepath = [prefs.bat2matlab_directory '\Output\'];
     if ~isempty(cell_string)
         prefs.output_data_filepath = [prefs.output_data_filepath '_' cell_string];
