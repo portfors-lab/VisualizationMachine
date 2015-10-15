@@ -1,3 +1,0 @@
-function nh = updateHandle(sb)
-%this function will update the hand
-nh = get(sb.a, 'userdata');
