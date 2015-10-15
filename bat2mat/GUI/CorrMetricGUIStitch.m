@@ -322,17 +322,16 @@ thresholds = [];
                             temp = [temp1; temp2];
                             
                             fprintf('T1: %d + %d =\n', temp1, temp2)
-                            display(temp)
+                            stitchedCell{x, 1} = temp;
                             
                         elseif temp1 ~= 0 | temp2 ~= 0
                             
                             temp = temp1 + temp2;
                             
                             fprintf('T2: %d + %d = %d\n', temp1, temp2, temp)
-                            display(temp)
+                            stitchedCell{x, 1} = temp;
                             
                         end
-                        stitchedCell{x, 1} = temp;
                     end
                 end
             end
